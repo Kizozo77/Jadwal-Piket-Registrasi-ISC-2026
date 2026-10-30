@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jadwal Piket Registrasi Sekretariat</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f5f0e8;
+            --surface: #ffffff;
+            --black: #171717;
+            --yellow: #f9e900;
+            --blue: #8cc8ff;
+            --pink: #ff9ebc;
+            --green: #b8f28b;
+            --border: 3px solid var(--black);
+            --shadow: 6px 6px 0 var(--black);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg);
+            color: var(--black);
+            min-height: 100vh;
+            padding: 32px 20px;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        /* HEADER */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--yellow);
+            border: var(--border);
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+            box-shadow: 3px 3px 0 var(--black);
+        }
+
+        .status {
+            background: var(--green);
+            border: 2px solid var(--black);
+            padding: 9px 13px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* HERO */
+
+        .hero {
+            background: var(--yellow);
+            border: 3px solid var(--black);
+            box-shadow: 8px 8px 0 var(--black);
+            padding: 34px;
+            margin-bottom: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "ADM";
+            position: absolute;
+            right: -5px;
+            bottom: -40px;
+            font-size: clamp(90px, 17vw, 190px);
+            font-weight: 700;
+            letter-spacing: -12px;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            background: var(--black);
+            color: white;
+            padding: 7px 11px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: clamp(30px, 5vw, 58px);
+            line-height: 1.08;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-description {
+            margin-top: 18px;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        .hero-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .hero-tag {
+            background: white;
+            border: 2px solid var(--black);
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* SECTION TITLE */
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2 {
+            font-size: 23px;
+            text-transform: uppercase;
+            letter-spacing: -0.8px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            background: var(--pink);
+            border: 2px solid var(--black);
+            padding: 8px 10px;
+            white-space: nowrap;
+        }
+
+        /* SCHEDULE GRID */
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .day-card {
+            background: var(--surface);
+            border: var(--border);
+            box-shadow: 5px 5px 0 var(--black);
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+        }
+
+        .day-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 18px;
+            border-bottom: var(--border);
+            background: var(--blue);
+        }
+
+        .day-name {
+            font-size: 21px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .day-number {
+            background: white;
+            border: 2px solid var(--black);
+            width: 35px;
+            height: 35px;
+            display: grid;
+            place-items: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .shift {
+            padding: 19px;
+        }
+
+        .shift + .shift {
+            border-top: 2px dashed #b8b8b8;
+        }
+
+        .shift-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .shift-dot {
+            width: 11px;
+            height: 11px;
+            background: var(--green);
+            border: 2px solid var(--black);
+            flex-shrink: 0;
+        }
+
+        .shift-afternoon .shift-dot {
+            background: var(--pink);
+        }
+
+        .shift-time {
+            margin-left: auto;
+            color: #555;
+            font-size: 11px;
+            letter-spacing: 0;
+            white-space: nowrap;
+        }
+
+        .members {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .member {
+            background: #f4f1eb;
+            border: 1.5px solid var(--black);
+            padding: 9px 11px;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .member.special {
+            background: var(--yellow);
+        }
+
+        .member.note {
+            background: #ededed;
+            color: #666;
+            font-style: italic;
+            border-style: dashed;
+        }
+
+        .empty-shift {
+            background: #ededed;
+            border: 2px dashed #999;
+            padding: 13px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        /* FRIDAY */
+
+        .day-card.friday .day-header {
+            background: var(--green);
+        }
+
+        .day-card.friday {
+            grid-column: 1 / -1;
+        }
+
+        .friday-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .friday-content .shift + .shift {
+            border-top: none;
+            border-left: 2px dashed #b8b8b8;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            margin-top: 35px;
+            padding: 20px 0;
+            border-top: 3px solid var(--black);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .footer-text {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer-badge {
+            background: var(--black);
+            color: white;
+            padding: 10px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+            body {
+                padding: 20px 14px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .brand {
+                font-size: 11px;
+            }
+
+            .status {
+                font-size: 9px;
+                padding: 7px;
+            }
+
+            .hero {
+                padding: 25px 20px;
+                box-shadow: 5px 5px 0 var(--black);
+            }
+
+            h1 {
+                letter-spacing: -1.2px;
+            }
+
+            .section-heading h2 {
+                font-size: 18px;
+            }
+
+            .schedule-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .day-card.friday {
+                grid-column: auto;
+            }
+
+            .friday-content {
+                grid-template-columns: 1fr;
+            }
+
+            .friday-content .shift + .shift {
+                border-left: none;
+                border-top: 2px dashed #b8b8b8;
+            }
+
+            .day-name {
+                font-size: 19px;
+            }
+
+            .member {
+                font-size: 12px;
+            }
+
+            .footer {
+                align-items: flex-start;
+            }
+        }
+
+        /* PRINT */
+
+        @media print {
+            body {
+                background: white;
+                padding: 10px;
+            }
+
+            .day-card,
+            .hero {
+                box-shadow: none;
+                break-inside: avoid;
+            }
+
+            .day-card:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <!-- HEADER -->
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-icon">A</div>
+                <span>Bidang Administrasi</span>
+            </div>
+
+            <div class="status">
+                ● Jadwal Piket
+            </div>
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+            <span class="eyebrow">OFFICIAL DUTY SCHEDULE</span>
+
+            <h1>
+                Jadwal Piket<br>
+                Registrasi Sekretariat
+            </h1>
+
+            <p class="hero-description">
+                Informasi pembagian jadwal piket harian untuk
+                memastikan kegiatan registrasi dan pelayanan
+                sekretariat berjalan dengan teratur.
+            </p>
+
+            <div class="hero-bottom">
+                <span class="hero-tag">SENIN — JUMAT</span>
+                <span class="hero-tag">SHIFT PAGI & SIANG</span>
+                <span class="hero-tag">ADMINISTRASI</span>
+            </div>
+        </section>
+
+        <!-- JADWAL -->
+        <section>
+            <div class="section-heading">
+                <h2>Daftar Jadwal</h2>
+                <span class="section-label">WEEKLY SCHEDULE</span>
+            </div>
+
+            <div class="schedule-grid" id="scheduleGrid">
+
+                <!-- SENIN -->
+                <article class="day-card">
+                    <div class="day-header">
+                        <h3 class="day-name">Senin</h3>
+                        <span class="day-number">01</span>
+                    </div>
+
+                    <div class="shift">
+                        <div class="shift-title">
+                            <span class="shift-dot"></span>
+                            Shift Pagi
+                            <span class="shift-time">08.00–12.00</span>
+                        </div>
+
+                        <div class="members">
+                            <span class="member">Najwa Qireina</span>
+                            <span class="member">Cut Aja Naila</span>
+                        </div>
+                    </div>
+
+                    <div class="shift shift-afternoon">
+                        <div class="shift-title">
+                            <span class="shift-dot"></span>
+                            Shift Siang
+                            <span class="shift-time">13.00–16.30</span>
+                        </div>
+
+                        <div class="members">
+                            <span class="member">Ascal Nabila</span>
+                            <span class="member">Abrar Ifenri Lubis</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SELASA -->
+                <article class="day-card">
+                    <div class="day-header">
+                        <h3 class="day-name">Selasa</h3>
+                        <span class="day-number">02</span>
+                    </div>
+
+                    <div class="shift">
+                        <div class="shift-title">
+                            <span class="shift-dot"></span>
+                            Shift Pagi
+                            <span class="shift-time">08.00–12.00</span>
+                        </div>
+
+                        <div class="members">
+                            <span class="member">Zia Ulfa</span>
+                            <span class="member">Husnil Khatimah</span>
+                        </div>
+                    </div>
+
+                    <div class="shift shift-afternoon">
+                        <div class="shift-title">
+                            <span class="shift-dot"></span>
+                            Shift Siang
+                            <span class="shift-time">13.00–16.30</span>
+                        </div>
+
+                        <div class="members">
+                            <span class="member">Nur Amelia Sofiyani</span>
+                            <span class="member">Nurul Firzatul Zannah</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- RABU -->
+                <article class="day-card">
+                    <div class="day-header">
+                        <h3 class="day-name">Rabu</h3>
+                        <span class="day-number">03</span>
+                    </div>
+
+                    <div class="shift">
+                        <div class="shift-title">
+                            <span class="shift-dot"></span>
+                            Shift Pagi
+                            <span class="shift-time">08.00–12.00</span>
+                        </div>
+
+                        <div class="members">
+                            <span class="member">Garwita Rasikha</span>
+                            <span class="member">Nadhirah Adzra Afifah Siregar</span>
+                        </div>
+                    </div>
+
+                    <div class="shift shift-afternoon">
+                        <div class="shift-title">
+                            <span class="shift-dot"></span>
+                            Shift Siang
+                            <span class="shift-time">13.00–16.30</span>
+                        </div>
+
+                        <div class="members">
+                            <span class="member">Farid Deza Amin Nur Rasyid</span>
+                            <span class="member special">Adellia Fitri (Pagi)</span>
+                            <span class="member">Nurfauziah</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- KAMIS -->
+                <article class="day-card">
+                    <div class="day-header">
+                        <h3 class="day-name">Kamis</h3>
+                        <span class="day-number">04</span>
+                    </div>
+
+                    <div class="shift">
+                        <div class="shift-title">
+                            <span class="shift-dot"></span>
+                            Shift Pagi
+                            <span class="shift-time">08.00–12.00</span>
+                        </div>
+
+                        <div class="members">
+                            <span class="member">Alya Nazua</span>
+                            <span class="member">Fuzia Nizla Siregar</span>
+                        </div>
+                    </div>
+
+                    <div class="shift shift-afternoon">
+                        <div class="shift-title">
+                            <span class="shift-dot"></span>
+                            Shift Siang
+                            <span class="shift-time">13.00–16.30</span>
+                        </div>
+
+                        <div class="members">
+                            <span class="member">Muhammad Rizki Aulia</span>
+                            <span class="member">Nurfauziah</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- JUMAT -->
+                <article class="day-card friday">
+                    <div class="day-header">
+                        <h3 class="day-name">Jumat</h3>
+                        <span class="day-number">05</span>
+                    </div>
+
+                    <div class="friday-content">
+                        <div class="shift">
+                            <div class="shift-title">
+                                <span class="shift-dot"></span>
+                                Shift Pagi
+                                <span class="shift-time">08.00–12.00</span>
+                            </div>
+
+                            <div class="members">
+                                <span class="member">Yulandari Oktavia Hasibuan</span>
+                                <span class="member">Farid Deza Amin Nur Rasyid</span>
+                            </div>
+                        </div>
+
+                        <div class="shift shift-afternoon">
+                            <div class="shift-title">
+                                <span class="shift-dot"></span>
+                                Shift Siang
+                                <span class="shift-time">13.00–16.30</span>
+                            </div>
+
+                            <div class="empty-shift">
+                                Tidak ada shift siang
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div>
+                <p class="footer-title">
+                    Bidang Administrasi
+                </p>
+
+                <p class="footer-text">
+                    Jadwal Piket Registrasi Sekretariat
+                </p>
+            </div>
+
+            <span class="footer-badge">
+                STAY ORGANIZED.
+            </span>
+        </footer>
+
+    </main>
+
+    <script>
+        // Animasi sederhana saat halaman dimuat
+        document.addEventListener("DOMContentLoaded", () => {
+            const cards = document.querySelectorAll(".day-card");
+
+            cards.forEach((card, index) => {
+                card.animate(
+                    [
+                        {
+                            opacity: 0,
+                            transform: "translateY(15px)"
+                        },
+                        {
+                            opacity: 1,
+                            transform: "translateY(0)"
+                        }
+                    ],
+                    {
+                        duration: 350,
+                        delay: index * 70,
+                        easing: "ease-out",
+                        fill: "both"
+                    }
+                );
+            });
+        });
+    </script>
+
+</body>
+</html>
